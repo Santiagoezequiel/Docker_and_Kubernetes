@@ -282,17 +282,34 @@ El almacenamiento en Kubernetes es fundamental para muchas aplicaciones, especia
 
 **Ilustracions**
 
-    Node                                            Node
-     |                                               |
-     |------- Pod ----- Storage                      |------- Pod ----- Storage
-     |                                               |
-     |------- Pod ----- Storage                      |------- Pod ----- Storage   
-     |                                               |
-     |------- Pod ----- Storage                      |------- Pod ----- Storage 
+    Node                                                   POD
+     |                                                ______________
+     |                                               |              |
+     |------- Pod ----- Storage                      |  CONTAINERS  |
+     |                                               |              |
+     |------- Pod ----- Storage                      |   VOLUMES    |
+     |                                               |              |
+     |------- Pod ----- Storage                      |______________|
+                                                     
 
 
+### AAMAZON WEB SERVICE EFS
+
+AWS EFS proporciona un sistema de archivos compartido que puede ser montado simultáneamente en múltiples instancias de un clúster. Esto permite a todas las instancias acceder y compartir los mismos datos, lo que facilita la colaboración y la comunicación entre los nodos del clúster.
+
+Cuando un pod en un clúster de Kubernetes necesita acceder a datos compartidos entre varias instancias o contenedores, puede montar un sistema de archivos de AWS EFS como volumen compartido. Esto permite que múltiples pods en diferentes nodos del clúster accedan y compartan los mismos datos almacenados en AWS EFS.
 
 
+       POD                 POD
+        |                   |
+    CONTAINER           CONTAINER
+        \                   /
+         \                 /
+          \               /
+           \             /
+            \           /
+             \         /
+               AWS EFS
 
 
 
