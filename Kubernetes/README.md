@@ -297,14 +297,16 @@ El almacenamiento en Kubernetes es fundamental para muchas aplicaciones, especia
 
 
 
-## Hasta el momento esta es la estructura de un Clúster en K8S
+## Visto hasta el momento..
 
-Clúster
-   |
-   |____ Exterior
-             |_______ Ingress
-                         |______ Service
-                                   |_________ Deployment
-                                                  |___________ Pod
-                                                                  |__________ Container
-                                                                                |_________ Storage
+Hasta el momento esta es la estructura que he aprendido de un Clúster en K8S
+
+    Clúster
+       |
+       |____ Exterior
+                 |_______ Ingress
+                             |______ Service
+                                       |_________ Deployment
+                                                      |___________ Pod
+                                                                      |__________ Container
+                                                                                    |_________ Storage
