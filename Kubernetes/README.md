@@ -310,3 +310,14 @@ Hasta el momento esta es la estructura que he aprendido de un Clúster en K8S
                                                       |___________ Pod
                                                                       |__________ Container
                                                                                     |_________ Storage
+
+
+**Clúster:** Representa el entorno de Kubernetes en el que se ejecutan todos los recursos.
+**Exterior:** Representa el entorno externo al clúster, como Internet.
+**Ingress:** Administra el acceso externo a los servicios dentro del clúster.
+**Service:** Expone la aplicación web como un servicio de red dentro del clúster.
+**Deployment:** Administra un conjunto de réplicas de nuestros pods que ejecutan la aplicación web.
+**Pod:** Es la unidad básica de implementación en Kubernetes, cada uno puede contener uno o más contenedores que ejecutan
+         la aplicación.
+**Container:** Dentro de cada pod, hay uno o más contenedores que ejecutan los componentes de la aplicación.
+**Storage:** Proporciona almacenamiento persistente asociado a nuestra aplicación.
