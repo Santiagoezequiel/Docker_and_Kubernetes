@@ -260,3 +260,51 @@ El VPA recopila datos sobre el uso de CPU y memoria de los pods y utiliza algori
 Las recomendaciones VPA pueden incluir sugerencias para aumentar o disminuir los límites de CPU y memoria de un pod, así como también pueden incluir recomendaciones sobre otros recursos, como la asignación de almacenamiento.
 
 Estas recomendaciones pueden ser útiles para los administradores de clústeres y desarrolladores para garantizar que los pods tengan suficientes recursos para manejar la carga de trabajo de manera eficiente sin desperdiciar recursos innecesariamente. Sin embargo, es importante tener en cuenta que estas recomendaciones son solo sugerencias y pueden necesitar ser evaluadas y ajustadas según las necesidades y características específicas de cada aplicación y entorno.
+
+
+
+
+
+## Storage
+
+El almacenamiento en Kubernetes es fundamental para muchas aplicaciones, especialmente aquellas que necesitan mantener datos persistentes, como bases de datos, sistemas de archivos compartidos, repositorios de archivos, etc. Los administradores de clústeres y los desarrolladores deben elegir y configurar cuidadosamente el almacenamiento adecuado para satisfacer las necesidades de sus aplicaciones y garantizar la integridad y disponibilidad de los datos.
+
+**COMPORTAMINETO POR DEFECTO**
+
+- Los pod no guardan informacion
+- El disco de los pods es efimero
+- La info se pierde cuando el pod muere
+- No comparte info entre pod del mismo tipo
+- Se pueden definir tipos de volumenes, para cambiar el comportamiento por defecto
+- La forma en que se crea y el ciclo de vida de la data depende del tipo de volumen creado
+
+- POR DEFECTO los contenedores no comparten espacio en disco aunque esten en el mismo pod.
+
+**Ilustracions**
+
+    Node                                            Node
+     |                                               |
+     |------- Pod ----- Storage                      |------- Pod ----- Storage
+     |                                               |
+     |------- Pod ----- Storage                      |------- Pod ----- Storage   
+     |                                               |
+     |------- Pod ----- Storage                      |------- Pod ----- Storage 
+
+
+
+
+
+
+
+
+## Hasta el momento esta es la estructura de un Clúster en K8S
+
+Clúster
+   |
+   |____ Exterior
+             |_______ Ingress
+                         |______ Service
+                                   |_________ Deployment
+                                                  |___________ Pod
+                                                                  |__________ Container
+                                                                                |_________ Storage
