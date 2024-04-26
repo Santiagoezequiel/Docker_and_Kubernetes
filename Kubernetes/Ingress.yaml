@@ -1,0 +1,95 @@
+
+
+apiVersion: extensions/v1betal
+kind: Ingress
+metadata:
+  name: "backend"
+  namespace: mifarma
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/shecme: internet-facing
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+    alb.ingress.kubernetes.io/healthcheck-path: /actuator/health
+    alb.ingress.kubernetes.io/tags: Environment=CI01
+  labels:
+    app: us-backend
+spec:
+  rules:
+  - host: dominio.com
+    http:
+      paths:
+      - path: /ruta
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: nombre-del-servicio
+            port: 80
+              number: puerto-del-servicio
+  - host: productmf.murl.com
+    http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: "us-product"
+          servicePort: 80
+  - host: mapimf.murl.com
+    http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: "us-mapi"
+          servicePort: 80
+
+
+
+
+"-" El guion: Detras de un elemento determina que es un nuevo item de la lista YML.
+En este caso específico, estamos describiendo un conjunto de reglas para un recurso Ingress en Kubernetes.
+Cada regla tiene dos partes importantes,el host (el nombre del dominio al que queremos dirigir el tráfico)
+y el path (la ruta dentro de ese dominio a la que queremos dirigir el tráfico).
+
+apiVersion: Indica la versión de la API de Kubernetes que se está utilizando. En este caso,
+se está utilizando la versión extensions/v1beta1, que es una versión antigua de la API de
+extensiones de Kubernetes. Es importante tener en cuenta que esta versión puede estar obsoleta
+dependiendo de la versión de Kubernetes que estés utilizando.
+
+kind: Especifica el tipo de recurso, que en este caso es un Ingress.
+
+metadata: Aquí se proporciona información sobre el recurso Ingress, como el nombre y el espacio de nombres
+(namespace). El nombre del Ingress es "backend" y está ubicado en el espacio de nombres "mifarma".
+
+annotations: Este bloque contiene annotations, que son metadatos adicionales adjuntos al recurso Ingress.
+Estas annotations proporcionan información adicional sobre cómo debería ser tratado el Ingress,
+especialmente por controladores o sistemas externos que interactúan con él. En este caso, las annotations son
+
+kubernetes.io/ingress.class: Indica la clase de Ingress que debe manejar este recurso. 
+En este caso, se especifica "alb", lo que sugiere que se espera que un controlador de Ingress específico,
+compatible con la carga de balanceo de Amazon (ALB), maneje este Ingress.
+
+alb.ingress.kubernetes.io/shecme: Especifica el esquema de acceso para el balanceador de carga de Application
+Load Balancer (ALB) de AWS. En este caso, se indica que es "internet-facing", lo que significa que el balanceador
+de carga es accesible desde Internet.
+
+alb.ingress.kubernetes.io/listen-ports: Define los puertos en los que el balanceador de carga de Application Load Balancer
+(ALB) debe escuchar el tráfico. En este caso, se especifica que debe escuchar el tráfico HTTP en el puerto 80.
+
+alb.ingress.kubernetes.io/healthcheck-path: Especifica la ruta para la verificación de salud (health check) del
+balanceador de carga de Application Load Balancer (ALB). En este caso, la ruta es "/actuator/health".
+
+alb.ingress.kubernetes.io/tags: Permite agregar etiquetas personalizadas al ALB de AWS. En este caso, se agrega
+una etiqueta "Environment" con el valor "CI01".
+
+labels: Este bloque contiene etiquetas que se pueden utilizar para identificar y agrupar recursos. 
+En este caso, se agrega la etiqueta "app" con el valor "us-backend".
+
+
+spec: La especificación del Ingress.
+rules: Las reglas para el Ingress.
+host: El nombre del host al que se dirige el tráfico. En este caso, dominio.com.
+http: La configuración para el tráfico HTTP.
+paths: Las rutas que se deben redirigir al servicio.
+path: La ruta a la que se debe redirigir el tráfico.
+pathType: El tipo de ruta (en este caso, ImplementationSpecific).
+backend: La configuración del servicio al que se redirige el tráfico.
+service: El nombre del servicio al que se redirige el tráfico.
+port: El puerto del servicio al que se redirige el tráfico.
