@@ -184,16 +184,13 @@ En lugar de exponer cada servicio individualmente al trafico externo, lo que es 
 -   Balanceo de cargas: Permite distribuir el trafico entre varios pods de un servicio para mejorar el rendimiento.
 -   TSL/SSL: Soporta la terminacion SSL para servicios HTTPS, proporcionando una capa adicional de seeguridad. 
 
+**Estructura**
+
     Exterior
         |_______Ingress
                     |______Service
                               |_________ Deployment
                                              |___________ Pod
-
-
-    Service
-      |_________ Deployment
-                    |___________ Pod
 
 
 
