@@ -1,0 +1,191 @@
+# KUBERNETES
+
+Es un sistema de codigo abierto de orquestacion de contenedores.
+
+Permite el despliegue, el escalamiento y la administracion automatica de aplicaciones.
+
+### *¿Por que utilizarlo?*
+
+- Service Discovery
+- Load balancing
+- Self-Healing
+- Horizontal Scaling
+- Secret/Setting
+- Batch porcessing
+- Storage orchestration
+
+### Consideraciones
+- Usa contenedores (Docker y otros)
+- Todo son objetos
+- Todo se define con manifiestos (YAML)
+- Si KUBERNETES muere la aplicacion puede seguir funcionando
+- Los proveedores cloud tienen servicios de administracion de Kubernetes
+
+
+### Configuracion imperativa
+
+Tu defines los estados deseados de los objetos que deseas y el se encarga de mantenerlos asi.
+
+### ¿Como nos comunicamos con K8s?
+
+- Herramientas de terceros (DASHBOARD, TERRAFORM)
+- HTTP/API RESET
+- CLI
+
+### ¿DOnde podemos desplegar K8s?
+
+- Local
+- En maquinas virtuales en la nube
+- Usar los K8s como servicios de los proveedores cloud
+    - EKS AmazonCloud
+    - GKS GoogleCloud
+    - AKS AzureCloud
+
+
+
+
+## ESTRUCTURA DE KUBERNETES
+
+    USER    (Local Environment)
+    |
+    |_ _ MASTER (Master Node)
+            |
+            |_ _ _ _ WORKER (Node)
+            |_ _ _ _ WORKER (Node)
+
+### Local Environment
+Es el entorno de desarrollo o prueba donde se configura y ejecuta Kubernetes localmente, a menudo mediante herramientas como MiniKube o Docker Desktop Kubernetes. En este entorno se pueden ejecutar **Master Nodes** y **Nodes** de trabajo en una unica maquina para simular un clúster completo de Kubernetes.
+
+### Master Nodes
+Es el componente principal del clúster de Kubernetes. El nodo maestro controla y coordina las operaciones del clúster. Está compuesto por varios componentes, como el API Server, el Control Manager, el Scheduler y el Etcd. El **etcd** es un almacen de datos distribuido que almacena el dato del clúster.
+
+- **Api server**
+    -   Es el componente central del master y del clúster de K8s en general.
+    -   Expone la API de K8s, que permite a los usuarios y a otros componentes del clúster comunicarse y gestionar
+        recursos
+    -   Todas las operaciones de administracion y gestion, como la creacion, modificacion y eliminacion de recursos (como
+        pods, servicios, volumenes, etc.), se realizan a traves de Api Server.
+    -   El ApiServer valida y autentica las solicitudes, y luego las procesa, almacenando el estado del clúster en etcd.
+
+ - **Control Manager**
+    -   Es un conjunto de controladores que son responsables de observar el estado del clúster a traves del API Server y
+        tomar acciones para mantener el estado deseado.
+    -   Cada controlador se enfoca en un aspecto particular del cluster, como la replicacion, los recursos de
+        almacenamiento, los servidores de red, etc.
+    -   Por ejemplo, el controlador de replicacion garantiza que el numero deseado de replicas de un pod este siempre en
+        funcionamiento, mientras que el controlador de servicios asegura que los servicios esten disponibles y enrutados correctamente.
+
+
+- **Scheduler**
+    -   Es responsable de asignar pods recien creados a nodos disponibles en el clúster.
+    -   Examinar los requisitos de recursos y las restricciones de afinidad y anti-afinidad
+        de los pods para tomar decisiones sobre donde programarlos
+    -   El Scheduler considera factores como la capacidad de recursos de los nodos, las restriciones de afinidad y
+        anti-afinidad, y las politicas de calidad de servicios al programar los pods.
+
+- **Etcd**
+    -   Es un almacenamiento de datos distribuido y consistente que se utiliza para almacenar el estado del clúster de K8s
+    -   Todos los componentes del nodo master (ApiServer,Control Manager,Scheduler) leen y escriben en etcd para mantener
+        y consultar el estado del clúster.
+    -   Proporciona un mecanismo confiable para almacenar y distribuir informacion de configuracion y estado critico del 
+        clúster, lo que garantiza la coherencia y la disponibilidad incluso  en situaciones de fallo del nodo master.
+
+
+
+
+### Nodes
+Son las maquinas fisicas o virtuales donde se ejecutan los contenedores. Cada nodo ejecuta los servicios necesarios para ejecutar pods, que son las unidades mas pequeñas y desplegables de trabajo en Kubernetes.
+Cada nodo tiene una capacidad limitada de recursos como CPU, memoria y almacenamiento.Y cada uno de estos son desechables.
+
+### Estructura de un YAML
+YAML es un formato de serializacion de datos legibles por humanos inspirado en lenguajes como XML
+
+Todos los objetos a partir de aqui tienen un yml para configurarlos.
+
+
+## **Cluster**
+Un cluster es el conjunto de nodos que ejecutan el software de Kubernetes y estan conectados entre si. Este cluster incluye nodos de diferentes roles: **Master nodes** y **Worker Nodes**.
+
+
+## MANIFIESTO Y OBJETOS
+
+- Namespace
+- Pod
+- Deployment
+- Servicio
+- Ingress
+- Replicaset/ReplicationController
+- HPA
+- VPA
+- Persistent Volumen
+- Storage
+
+
+### Orden de los objetos
+
+Service
+  |_________ Deployment
+                |___________ Pod
+
+**Pod**
+Un pod es la unidad mas pequeña y basica en Kubernetes. Representa un entorno de ejecucion para unao mas instancias de un contenedor. Los contenedores dentro de un pod comparten recursos como la red y el almacenamiento, y se ejecutan en la misma maquina virtual o fisica. Los pods son efimeros y pueden ser creados, escalados y destruidos de manera dinamica por Kubernetes segun sea necesario.
+
+Los pods no son inmortales.
+Un deployment hace inmortal a un pod
+Un pod tiene un ip, per los ip de los pods no son fijos.
+
+**Deployment**
+Un Deployment es un objeto en kubernetes que maneja la creacion y escalado de replicas de pods. Permite definir el estado deseado de las aplicaciones y asegura que ese estado se mantenga incluso incluso si los pods fallan o se eliminan. Los deployments permiten realizar actualizaciones de manera controlada, facilitando el despliegue de nuevas versiones de aplicaciones sin tiempo de inactividad.
+
+**Service**
+Un service es un objeto que define un conjunto logico de Pods y una politica por la cual acceder a ellos. Proporciona una forma persistente de acceder a una aplicacion, independientemente de la ubicacion o el estado de los pods individuales. Los service pueden ser de diferentes tipos, como **ClusterIP**(Acceso interno solo dentro del clúster), **NodePort**(Acceso externoa traves de un puerto en cada nodo), **LoadBalancer**(Balanceo de carga externo a traves de un equilibrador de carga de red), o ExternalName(Mapeo a un registro DNS externo)
+
+Los servicios comunican a los pods con el exterior a traves del kube-proxy.
+Un servicios puede definir mas de u puerto
+El servicio usa el protocolo TCP
+Se puede cambiar de protocolo
+Un servicio puede apuntar a otros servicio
+Un servicio puede apuntar a otra cosa que no sea un pod
+
+
+
+
+                                        Aplicacion Frontend
+                                               |
+                                            Servicio
+                          _____________________|________________________
+                          |                    |                       | 
+                        Worker               Worker                  Worker
+                      kube-proxy           kube-proxy              kube-proxy
+
+      Worker
+        |
+        |
+    Deployment
+        |
+       Pods
+
+
+### Tipos de Servicios
+
+**ClusterIP** expone el servicio internamente.
+**NodePort** expone el servicio al exterior en la ip de cada nodo y usa un puerto estatico.
+**LoadBalancer** expone un servicio externamente utilizando un balanceador de carga de un proveedor de nube.
+**ExternaName** asigna el servicio al contenido del externalName devolciendo CNAME registro.
+
+
+
+
+### Ingress
+
+
+
+
+
+
+### Namespace
+SOn espacios de nombres, que limitan lo que puedes ver, cuando listas los objetos que estan en un namespace solo puede ver los que previamente se configuraron en el.
+Normalmente existen NS preconfigurados en los kubernetes.
+- Default
+- Kube-public
+- Kube-system
