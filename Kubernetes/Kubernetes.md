@@ -177,8 +177,18 @@ Un servicio puede apuntar a otra cosa que no sea un pod
 
 
 ### Ingress
+Ingress redirije las solicitudes de los usuarios a los diferentes servidores segun las reglas definidas por el usuario.
+En lugar de exponer cada servicio individualmente al trafico externo, lo que es dificil de manejar, ingress proporciona una forma de consolidar y gestionar la exposicion de multiples servicios bajo un solo punto de entrada. Esto es util en entornos de produccion donde se necesitan multiples servicios accesibles publicamente.
 
+**Caracteristicas**
+-   Balanceo de cargas: Permite distribuir el trafico entre varios pods de un servicio para mejorar el rendimiento.
+-   TSL/SSL: Soporta la terminacion SSL para servicios HTTPS, proporcionando una capa adicional de seeguridad. 
 
+     Exterior
+        |_______Ingress
+                    |______Service
+                              |_________ Deployment
+                                             |___________ Pod
 
 
 
@@ -189,3 +199,63 @@ Normalmente existen NS preconfigurados en los kubernetes.
 - Default
 - Kube-public
 - Kube-system
+
+
+
+
+
+
+## HPA Y VPA
+
+En resumen, el VPA se encarga de ajustar verticalmente los recursos asignados a los pods individuales, mientras que el HPA se encarga de ajustar horizontalmente el número de réplicas de conjuntos de pods para manejar la carga de trabajo. Ambos son componentes importantes para lograr una escalabilidad eficiente y automática en Kubernetes.
+
+### Verticalo Pods Autoscaler (VPA)
+Supongamos que inicialmente asignaste a cada pod 1 vCPU y 1 GB de memoria, pero a medida que la aplicación comienza a recibir más tráfico, algunos pods podrían requerir más recursos para manejar la carga.
+El VPA monitorea el uso de CPU y memoria de cada pod individual y nota que algunos están alcanzando su límite.
+Entonces, el VPA ajusta automáticamente los límites de recursos de esos pods específicos, aumentando la asignación de CPU y memoria a 2 vCPU y 2 GB de memoria, respectivamente.
+Esto ayuda a garantizar que cada pod tenga suficientes recursos para manejar la carga sin sobrecargarse ni ralentizar la aplicación.
+
+
+### Horizontal Pods Autoscaler (HPA)
+Supongamos que, además de los cambios verticales en los recursos de los pods, la carga de trabajo de la aplicación también varía durante el día.
+Durante las horas pico, la aplicación experimenta un aumento significativo en el tráfico, lo que podría abrumar a los pods existentes si no se escalan.
+El HPA monitorea la utilización de recursos de los pods y nota que están operando al límite de su capacidad.
+Entonces, el HPA automáticamente escala horizontalmente el número de réplicas de la aplicación, creando más pods para manejar el aumento de tráfico.
+Cuando la carga de trabajo disminuye nuevamente, el HPA reduce el número de réplicas para evitar el gasto innecesario de recursos.
+
+
+
+
+
+
+### HPA
+**¿Como se escalá con HPA?**
+
+Primero debes:
+- Definir el objeto que deseas escalar
+- Definir el minimo de replicas
+- Definir el maximo de replicas
+- Definir el recurso a monitorear
+- Definir la regla para escalar.
+
+
+### VPA
+**¿Como se escalá con VPA?**
+
+Consideraciones:
+- No agrega nuevos pods, reemplaza el pod existente.
+- El VPA cuando necesita escalar, destruye el pod existente y crea uno nuevo
+- Es automatico el escalado.
+- El escalado puede ser para arriba y para abajo.
+- Puedes definir que no será analizado dentro del pod (que container no se tomará en cuenta para el escalado)
+
+
+**Sugerencias de VPA**
+
+Las Recomendaciones VPA (Vertical Pod Autoscaler Recommendations) son sugerencias proporcionadas por el Vertical Pod Autoscaler (VPA) en Kubernetes sobre cómo deberían ajustarse los recursos asignados a los pods para optimizar el rendimiento y la eficiencia. Estas recomendaciones se basan en el análisis del comportamiento pasado de los pods y su uso de recursos.
+
+El VPA recopila datos sobre el uso de CPU y memoria de los pods y utiliza algoritmos para predecir cuántos recursos necesitarán esos pods en el futuro. Basándose en esta información, el VPA puede sugerir aumentar o disminuir los límites de recursos asignados a los pods.
+
+Las recomendaciones VPA pueden incluir sugerencias para aumentar o disminuir los límites de CPU y memoria de un pod, así como también pueden incluir recomendaciones sobre otros recursos, como la asignación de almacenamiento.
+
+Estas recomendaciones pueden ser útiles para los administradores de clústeres y desarrolladores para garantizar que los pods tengan suficientes recursos para manejar la carga de trabajo de manera eficiente sin desperdiciar recursos innecesariamente. Sin embargo, es importante tener en cuenta que estas recomendaciones son solo sugerencias y pueden necesitar ser evaluadas y ajustadas según las necesidades y características específicas de cada aplicación y entorno.

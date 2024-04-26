@@ -1,0 +1,37 @@
+
+
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: mi-hpa
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: mi-deployment
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      targetAverageUtilization: 50
+
+
+
+apiVersion y kind: indican que estamos definiendo un recurso HorizontalPodAutoscaler.
+metadata: especifica el nombre del HPA y el espacio de nombres donde se encuentra.
+spec: contiene la especificación del HPA.
+scaleTargetRef: apunta al recurso al que el HPA se dirigirá para ajustar el número de réplicas.
+                En este caso, es un Deployment llamado mi-deployment.
+minReplicas y maxReplicas: Especifican el número mínimo y máximo de réplicas que el HPA puede ajustar.
+              En este ejemplo, el HPA mantendrá al menos 1 réplica y no aumentará más allá de 10 réplicas.
+metrics: Define las métricas utilizadas para escalar el Deployment. En este caso, se utiliza la métrica de
+          utilización de CPU. El HPA intentará mantener el uso promedio de CPU de los pods objetivo al 50%.
+
+Con esta configuración, Kubernetes ajustará automáticamente el número de réplicas del Deployment mi-deployment
+según la utilización de la CPU, manteniendo el rendimiento óptimo de la aplicación.
+
+
+
