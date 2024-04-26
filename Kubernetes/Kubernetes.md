@@ -32,7 +32,7 @@ Tu defines los estados deseados de los objetos que deseas y el se encarga de man
 - HTTP/API RESET
 - CLI
 
-### ¿DOnde podemos desplegar K8s?
+### ¿Donde podemos desplegar K8s?
 
 - Local
 - En maquinas virtuales en la nube
@@ -103,7 +103,7 @@ YAML es un formato de serializacion de datos legibles por humanos inspirado en l
 Todos los objetos a partir de aqui tienen un yml para configurarlos.
 
 
-## **Cluster**
+### **Cluster**
 Un cluster es el conjunto de nodos que ejecutan el software de Kubernetes y estan conectados entre si. Este cluster incluye nodos de diferentes roles: **Master nodes** y **Worker Nodes**.
 
 
@@ -123,9 +123,9 @@ Un cluster es el conjunto de nodos que ejecutan el software de Kubernetes y esta
 
 ### Orden de los objetos
 
-Service
-  |_________ Deployment
-                |___________ Pod
+    Service
+      |_________ Deployment
+                    |___________ Pod
 
 **Pod**
 Un pod es la unidad mas pequeña y basica en Kubernetes. Representa un entorno de ejecucion para unao mas instancias de un contenedor. Los contenedores dentro de un pod comparten recursos como la red y el almacenamiento, y se ejecutan en la misma maquina virtual o fisica. Los pods son efimeros y pueden ser creados, escalados y destruidos de manera dinamica por Kubernetes segun sea necesario.
@@ -184,7 +184,7 @@ Un servicio puede apuntar a otra cosa que no sea un pod
 
 
 ### Namespace
-SOn espacios de nombres, que limitan lo que puedes ver, cuando listas los objetos que estan en un namespace solo puede ver los que previamente se configuraron en el.
+Son espacios de nombres, que limitan lo que puedes ver, cuando listas los objetos que estan en un namespace solo puede ver los que previamente se configuraron en el.
 Normalmente existen NS preconfigurados en los kubernetes.
 - Default
 - Kube-public
