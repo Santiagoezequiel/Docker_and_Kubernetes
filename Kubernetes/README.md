@@ -191,6 +191,10 @@ En lugar de exponer cada servicio individualmente al trafico externo, lo que es 
                                              |___________ Pod
 
 
+    Service
+      |_________ Deployment
+                    |___________ Pod
+
 
 
 ### Namespace
