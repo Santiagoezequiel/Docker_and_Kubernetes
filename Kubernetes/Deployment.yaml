@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nombre-del-deployment
+  labels:
+    app: etiqueta-de-la-aplicacion
+spec:
+  replicas: numero-de-replicas
+  selector:
+    matchLabels:
+      app: etiqueta-de-la-aplicacion
+  template:
+    metadata:
+      labels:
+        app: etiqueta-de-la-aplicacion
+    spec:
+      containers:
+        - name: nombre-del-contenedor
+          image: imagen-del-contenedor
+          ports:
+            - containerPort: puerto-del-contenedor
