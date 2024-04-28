@@ -345,3 +345,36 @@ Hasta el momento esta es la estructura que he aprendido de un Clúster en K8S
 **Container:** Dentro de cada pod, hay uno o más contenedores que ejecutan los componentes de la aplicación.
 
 **Storage:** Proporciona almacenamiento persistente asociado a nuestra aplicación.
+
+
+
+
+
+## COMANDOS
+
+**Crea un recurso en el cluster, como un pod, servicio, replicaset, etc.**
+    
+    kubectl create deployment nginx --image=nginx
+
+**Aplica cambios a recursos existentes o crea nuevos recursos a partir de configuracion YAML o JSON.**
+
+    kubectl apply -f deployment.yaml
+
+**Obtiene informacion sobre recursos en el cluster.**
+
+    kubectl get pods
+
+
+**Obten informacion sobre todos los Name Spaces.**
+
+    kubectl get ns
+
+**Obten informacion sobre absolutamente todos los componentes**(No muy utilizado)
+
+    kubectl get all
+
+**Obten informacion sobre los nodos.**
+
+    kubectl get node
+
+
