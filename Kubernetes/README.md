@@ -352,18 +352,24 @@ Hasta el momento esta es la estructura que he aprendido de un Clúster en K8S
 
 ## COMANDOS
 
-**Crea un recurso en el cluster, como un pod, servicio, replicaset, etc.**
-    
-    kubectl create deployment nginx --image=nginx
+**Obten informacion sobre los servicios.**
 
-**Aplica cambios a recursos existentes o crea nuevos recursos a partir de configuracion YAML o JSON.**
+    kubectl get service
 
-    kubectl apply -f deployment.yaml
+**Obten informacion sobre los deployments.**
 
-**Obtiene informacion sobre recursos en el cluster.**
+    kubectl get deploy
+
+**Obtiene informacion sobre todos los pods en el cluster.**
 
     kubectl get pods
 
+**Obten informacion sobre un pod en especifico.**
+
+    kubectl get pod <nombre-del-pod>
+
+**Obten informacion sobre los replicaset.**
+    kubectl ger replicaset
 
 **Obten informacion sobre todos los Name Spaces.**
 
@@ -377,4 +383,10 @@ Hasta el momento esta es la estructura que he aprendido de un Clúster en K8S
 
     kubectl get node
 
+**Crea un recurso en el cluster, como un pod, servicio, replicaset, etc.**
+    
+    kubectl create deployment nginx --image=nginx
 
+**Aplica cambios a recursos existentes o crea nuevos recursos a partir de configuracion YAML o JSON.**
+
+    kubectl apply -f deployment.yaml
