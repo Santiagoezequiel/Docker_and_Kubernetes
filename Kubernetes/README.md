@@ -352,6 +352,24 @@ Hasta el momento esta es la estructura que he aprendido de un Clúster en K8S
 
 ## COMANDOS
 
+### Principales
+
+    kubectl get
+
+    kubectl apply
+
+    kubectl delete
+
+    kubectl rollout
+
+    kubectl log
+
+    kubectl describe
+
+
+
+### Ver informacion de elementos.
+
 **Obten informacion sobre los servicios.**
 
     kubectl get service
@@ -382,6 +400,34 @@ Hasta el momento esta es la estructura que he aprendido de un Clúster en K8S
 **Obten informacion sobre los nodos.**
 
     kubectl get node
+
+**Obten informacion sobre los hpa.**
+
+    kubectl get hpa
+
+**Obten informacion sobre los vpa.**
+
+    kubectl get vpa
+
+### Ver recursos utilizados.
+
+**Obten informacion sobre los recursos que utilizan..**
+
+**Pods**
+
+    kubectl top pod
+
+**Nodos**
+
+    kubectl top nodes
+
+**Pods en un NameSpace**
+
+    kubectl top pods --namespace <nombre-del-namespace>
+
+****
+
+
 
 **Crea un recurso en el cluster, como un pod, servicio, replicaset, etc.**
     
