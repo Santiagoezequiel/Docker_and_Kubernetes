@@ -36,5 +36,5 @@
 
     kubectl apply -f /root/dashboard.yaml
 
-<font color="grey>(Este comando se utiliza para crear o actualizar recursos en un cluster a partir de archivos de configuracion YAML o JSON)</font>
+<font color="grey>Este comando se utiliza para crear o actualizar recursos en un cluster a partir de archivos de configuracion YAML o JSON</font>
 
