@@ -67,3 +67,18 @@ Este comando espera a que ciertas condiciones se cumplan en el recurso. Aqui, es
               targetPort: 9090
         selector:
             k8s-app: kubernetes-dashboard
+
+
+### 9. Crea una cuenta de servicio y use el token.
+
+    kubectl -n kubernetes-dashboard create sa admin-user
+
+Este comando crea un nuevo **Service Account** llamado **admin-user** en el namespace **kubernetes-dashboard**. Los Service Accounts son identidades que se utilizan para autenticar y autorizar las interacciones de los pods con otros componentes del clúster de Kubernetes.
+
+    kubectl create clusterrolebinding admin-user --clusterrole cluster-admin --serviceaccount kubernetes-dashboard:admin-user
+
+Este comando crea un ClusterRoleBinding (asociacion de roles a nivel de cluster) llamado **admin-user**. Asocia el ClusterRole **cluster-admin** al Service Account  **admin-user** en el namespace **kubernetes-dashboard**. El ClusterRole **cluster-admin** es un rol predefinido en Kubernetes que otorga permisos de administrador sobre todo el cluster.
+
+    kubectl -n kubernetes-dashboard create token admin-user
+
+Este comando crea un token de acceso para el Service Account **admin-user** en el namespace **kubernetes-dashboard**. Este token de acceso se utiliza para  autenticar al usuario administrador cuando accede al dashboard de Kubernetes.
