@@ -36,5 +36,34 @@
 
     kubectl apply -f /root/dashboard.yaml
 
-<div style="color: rgb(255,0,0);">Este comando se utiliza para crear o actualizar recursos en un cluster a partir de archivos de configuracion YAML o JSON</div>
+Este comando se utiliza para crear o actualizar recursos en un cluster a partir de archivos de configuracion YAML o JSON
 
+    kubectl -n kubernetes-dashboard wait --for=condition=ready pod --all
+
+Este comando espera a que ciertas condiciones se cumplan en el recurso. Aqui, esta esperando a que todos los pods en el namespace **kubernetes-dashboard** esten listos y en un estado **ready**.
+
+
+**Las modificaciones aqui fueron estos argumentos:**
+
+    args:
+    - --namespace=kubernetes-dashboard
+    - --enable-skip-login
+    - --disablee-settings-authorizer
+    - --enable-insecure-login
+    - --insecure-bind-address=0.0.0.0
+
+**Y un servicio actualizado YAML:**
+
+    kind: Service
+    apiVersion: v1
+    metadata:
+        labels:
+            k8s-app: kubernetes-dashboard
+        name: kubernetes-dashboard
+        namespace: kubernetes-dashboard
+    spec:
+        ports:
+            - port: 9090
+              targetPort: 9090
+        selector:
+            k8s-app: kubernetes-dashboard
