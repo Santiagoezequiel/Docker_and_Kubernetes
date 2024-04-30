@@ -82,3 +82,9 @@ Este comando crea un ClusterRoleBinding (asociacion de roles a nivel de cluster)
     kubectl -n kubernetes-dashboard create token admin-user
 
 Este comando crea un token de acceso para el Service Account **admin-user** en el namespace **kubernetes-dashboard**. Este token de acceso se utiliza para  autenticar al usuario administrador cuando accede al dashboard de Kubernetes.
+
+### 10. Crea un port forwarding
+
+    kubectl -n kubernetes-dashboard port-forward service/kubernetes-dashboard 9090:9090 --address 0.0.0.0
+
+Este comando utiliza **kubectl** para restablecer un tunel de red desde tu maquina local al servicio **kubernetes-dashboard** dentro del namespace **kubernetes-dashboard**. Esto se hace mediante el reenvio del puerto 9090 del servicio **kubernetes-dashboard** en el cluster de Kubernetes al puerto 9090 en tu maquina local. Esto significa que cualquier trafico que llegue al puerto 9090 de tu maquina local se redigira al servicio **kubernetes-dashboard** en el cluster. La opcion **--address 0.0.0.0** especifica la direccion IP en la que el servidor de Kubernetes debe escuchar las solicitudes de reenvio de puerto.
