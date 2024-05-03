@@ -350,6 +350,9 @@ Hasta el momento esta es la estructura que he aprendido de un Clúster en K8S
 
 
 
+
+
+
 ## COMANDOS
 
 ### Principales
@@ -405,9 +408,6 @@ Hasta el momento esta es la estructura que he aprendido de un Clúster en K8S
 
     kubectl get hpa
 
-**Obten informacion sobre los vpa.**
-
-    kubectl get vpa
 
 ### Ver recursos utilizados.
 
@@ -425,13 +425,37 @@ Hasta el momento esta es la estructura que he aprendido de un Clúster en K8S
 
     kubectl top pods --namespace <nombre-del-namespace>
 
-****
+
+### Describir pod
+
+**Obten informacion descriptiba del pod**
+
+    kubectl describe pod <nombre-del-pod>
 
 
+### Matar un nodo
+
+**Eliminar un pod**
+
+    kubectl delete pod <nombre-del-pod>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
 **Crea un recurso en el cluster, como un pod, servicio, replicaset, etc.**
     
-    kubectl create deployment nginx --image=nginx
+    kubectl create <deployment> nginx --image=nginx
 
 **Aplica cambios a recursos existentes o crea nuevos recursos a partir de configuracion YAML o JSON.**
 
