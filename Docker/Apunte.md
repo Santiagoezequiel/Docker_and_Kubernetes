@@ -65,8 +65,15 @@ Los microservicios son una arquitectura de software en la que una aplicación se
 
 
 
-### DOCKER VOLUMES
-En resumen, los volúmenes en Docker son como carpetas especiales que proporcionan una forma fácil y confiable de almacenar y compartir datos entre contenedores y con el host. Esto hace que Docker sea más versátil y adecuado para una amplia gama de aplicaciones y escenarios de uso.
+## DOCKER VOLUMES
+El almacenamiento en los contenedores son volatiles, osea que cuando se eliminan los contenedores se borran los datos almacenados en ellos, para resguardarlos existen dos maneras: **Bind Mounts** y **Volumenes** 
+####los volúmenes en Docker son como carpetas especiales que proporcionan una forma fácil y confiable de almacenar y compartir datos entre contenedores y con el host. Esto hace que Docker sea más versátil y adecuado para una amplia gama de aplicaciones y escenarios de uso.
+
+### BIND MOUNTS
+Los bind mounts enlazan una carpeta local de nuestro sistema con una carpeta del contenedor, asi si se ve realizado un cambio dentro del contenedor, este suscribira los cambios a la carpeta en el sistema.
+
+    
+
 
 #### *¿Como crearlos?*
 Crear un volumen en Docker es bastante simple. Puedes crear un volumen utilizando el comando docker volume create seguido del nombre que desees asignar al volumen.
@@ -76,6 +83,16 @@ docker volume create nombre_del_volumen
 #### *¿Como usarlos?*
 
 Docker run -d --name mi_contenedor -v volumen:/ruta img:tag.
+
+
+
+
+
+
+
+
+
+
 
 
 
