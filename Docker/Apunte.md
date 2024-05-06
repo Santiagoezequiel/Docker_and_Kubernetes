@@ -65,14 +65,23 @@ Los microservicios son una arquitectura de software en la que una aplicación se
 
 
 
-## DOCKER VOLUMES
+## ALMACENAMIENTO
 El almacenamiento en los contenedores son volatiles, osea que cuando se eliminan los contenedores se borran los datos almacenados en ellos, para resguardarlos existen dos maneras: **Bind Mounts** y **Volumenes** 
 ####los volúmenes en Docker son como carpetas especiales que proporcionan una forma fácil y confiable de almacenar y compartir datos entre contenedores y con el host. Esto hace que Docker sea más versátil y adecuado para una amplia gama de aplicaciones y escenarios de uso.
 
 ### BIND MOUNTS
 Los bind mounts enlazan una carpeta local de nuestro sistema con una carpeta del contenedor, asi si se ve realizado un cambio dentro del contenedor, este suscribira los cambios a la carpeta en el sistema.
 
-    
+    docker run --name nombre -v /MI/DIRECTORIO/ACTUAL:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=Contraseña -d mysql
+
+Este es un ejemplo creando  un contenedor llamado **nombre** de la imagen **mysql** y asignandole un directorio de nuestro sistema para que pueda almacenar datos en el.
+
+
+### VOLUMENES
+
+
+
+**-v directorio:directorio :** Esto crea un volumen, primero indica el directorio local del sistema y luego el directorio del contenedor segun su imagen, esto significa que el directorio /MI/DIRECTORIO/ACTUAL en tu sistema será accesible dentro del contenedor en la ruta /var/lib/mysql.
 
 
 #### *¿Como crearlos?*
