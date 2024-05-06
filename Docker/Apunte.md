@@ -78,7 +78,13 @@ Este es un ejemplo creando  un contenedor llamado **nombre** de la imagen **mysq
 
 
 ### VOLUMENES
+Para crear y utilizar volumenes es muy parecido a los Bind Mounts.
+Primero creamos un volumen
+    docker volume create name
+Luego ejecutamos un contenedor vinculandolo al volumen
+    docker run -d --name nombre --mount src={NOMBRE DEL VOLUMEN},dst=/archivo/del/contenedor imagen:version
 
+Con --mount le indicamos al contenedor que guardará sus archivos en un volumen.
 
 
 **-v directorio:directorio :** Esto crea un volumen, primero indica el directorio local del sistema y luego el directorio del contenedor segun su imagen, esto significa que el directorio /MI/DIRECTORIO/ACTUAL en tu sistema será accesible dentro del contenedor en la ruta /var/lib/mysql.
